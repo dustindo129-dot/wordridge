@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wordridge</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="game-container">
+        <header class="header">
+            <h1 class="title">Wordridge</h1>
+            <div class="stats">
+                <span class="jump-count">Jumps: <span id="jumpCount">0</span></span>
+            </div>
+        </header>
+
+        <div class="goal-section">
+            <span class="goal-label">Goal:</span>
+            <span class="goal-word" id="goalWord">---</span>
+            <div class="goal-definition" id="goalDefinition"></div>
+        </div>
+
+        <main class="game-area">
+            <div class="current-word-section">
+                <div class="current-word-header">
+                    <span class="current-label">Current Word:</span>
+                    <span class="current-word" id="currentWord">---</span>
+                </div>
+                <div class="part-of-speech" id="partOfSpeech"></div>
+            </div>
+
+            <div class="definition-section">
+                <div class="definition-label">Definition:</div>
+                <div class="definition" id="definition">
+                    Loading...
+                </div>
+                <div class="loading-spinner" id="loadingSpinner" style="display: none;">
+                    <div class="spinner"></div>
+                </div>
+            </div>
+
+            <div class="path-section">
+                <div class="path-label">Path:</div>
+                <div class="path" id="path"></div>
+            </div>
+
+            <div class="collapse-control">
+                <span class="collapse-toggle" id="toggleAnswerSectionBtn">
+                    <span class="collapse-icon">▼</span>
+                    <span class="collapse-text">Hide</span>
+                </span>
+            </div>
+
+            <div class="collapsible-content" id="collapsibleContent">
+                <div class="answer-section" id="answerSection">
+                    <div class="answer-label">Shortest Path:</div>
+                    <div class="answer-info">
+                        <span class="answer-jumps">Minimum Jumps: <span id="answerJumps">0</span></span>
+                    </div>
+                    <div class="countdown-timer" id="countdown"></div>
+                    <div class="answer-path" id="answerPath"></div>
+                </div>
+
+                <footer class="footer">
+                    <button class="btn btn-suggest" id="suggestWordBtn">Missing A Word?</button>
+                </footer>
+            </div>
+        </main>
+    </div>
+
+    <!-- Win Modal -->
+    <div class="modal-overlay" id="winModal">
+        <div class="modal">
+            <h2 class="modal-title">You reached the goal!</h2>
+            <div class="modal-stats">
+                <div class="stat-item">
+                    <span class="stat-value" id="finalJumps">0</span>
+                    <span class="stat-label">Jumps</span>
+                </div>
+            </div>
+            <div class="modal-path">
+                <div class="path-label">Your path:</div>
+                <div class="final-path" id="finalPath"></div>
+            </div>
+            <div class="modal-actions">
+                <button class="btn btn-primary" id="shareBtn">Share Result</button>
+                <button class="btn btn-secondary" id="playAgainBtn">Play Again</button>
+            </div>
+            <div class="share-feedback" id="shareFeedback"></div>
+        </div>
+    </div>
+
+    <!-- Word Suggestion Modal -->
+    <div class="modal-overlay" id="suggestionModal">
+        <div class="modal suggestion-modal">
+            <div class="modal-header">
+                <h2 class="modal-title">Suggest Missing Words</h2>
+                <button class="close-modal-btn" id="closeSuggestionModalBtn">&times;</button>
+            </div>
+            
+            <div class="modal-body">
+                <p class="suggestion-hint">If you see unclickable words (not the current word or misspelled words like "orto" instead of "or to"), suggest them here! Already Suggested Words (will be removed when added to dictionary):</p>
+                
+                <div class="suggestion-input-group">
+                    <input type="text" id="suggestWordInput" placeholder="Enter missing word..." class="suggestion-input">
+                    <button id="submitSuggestionBtn" class="btn btn-submit">Submit</button>
+                </div>
+                
+                <div class="suggested-words-container">
+                    <div class="suggested-words-list" id="suggestedWordsList">
+                        <p class="no-suggestions">All suggested words have been added to the dictionary.</p>
+                    </div>
+                    
+                    <div class="pagination-controls">
+                        <button class="btn btn-page" id="prevPageBtn">←</button>
+                        <span class="page-info" id="pageInfo">Page 1 of 1</span>
+                        <button class="btn btn-page" id="nextPageBtn">→</button>
+                    </div>
+                </div>
+                
+                <p class="suggestion-thanks">Thank you for helping improve our dictionary!</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    
+    <!-- Firebase Configuration -->
+    <script src="firebase-config.js"></script>
+    
+    <!-- Game Logic -->
+    <script src="app.js"></script>
+</body>
+</html>
